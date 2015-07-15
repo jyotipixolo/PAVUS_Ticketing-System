@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2015 at 04:12 PM
+-- Generation Time: Jul 15, 2015 at 05:37 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -36,7 +36,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `contactnumber` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `sales`, `quantity`, `cost`, `category`, `date`, `name`, `email`, `contactnumber`) VALUES
+(1, 1, 4, 5000, 'silver', '2015-07-15 11:41:12', 'abhay', 'abhay.pixolo@gmail.com', '9820840946');
 
 -- --------------------------------------------------------
 
@@ -46,10 +53,20 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 CREATE TABLE IF NOT EXISTS `tickets` (
 `id` int(11) NOT NULL,
-  `oderid` int(11) NOT NULL,
+  `orderid` int(11) NOT NULL,
   `ticket` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`id`, `orderid`, `ticket`, `category`) VALUES
+(1, 1, 'S001', 'silver'),
+(2, 1, 'S002', 'silver'),
+(3, 1, 'S003', 'silver'),
+(4, 1, 'S004', 'silver');
 
 -- --------------------------------------------------------
 
@@ -62,7 +79,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
+(1, 'pixolo', 'pixolo@pixolo.com', 'pixolo123');
 
 --
 -- Indexes for dumped tables
@@ -94,17 +118,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

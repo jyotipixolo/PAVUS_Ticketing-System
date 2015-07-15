@@ -19,8 +19,10 @@ class User_model extends MY_Model
     public function login(){
         $user = $this->getby(array(
             'email'=>$this->input->post('email'),
-            'password'=>$this->hash($this->input->post('password'))
+            'password'=>$this->input->post('password')
         ), TRUE);
+        
+        echo $user;
         
         if(count($user)){
             $data = array(
@@ -39,9 +41,9 @@ class User_model extends MY_Model
     public function loggedin(){
         return (bool) $this->session->userdata('loggedin');
     }
-    public function hash($string){
+    /*public function hash($string){
         return hash('sha512', $string . config_item('encryption_key'));
-    }
+    }*/
 }
 	
 ?>

@@ -15,11 +15,11 @@ class Pixolo_Controller extends MY_Controller {
         
         //GO TO LOGIN PAGE IF NO SESSION
         $exception_uris = array("user/login", "user/logout");
-        if(in_array(uri_string(),$exception_uris) == FALSE)
+        /*if(in_array(uri_string(),$exception_uris) == FALSE)
            {
                 if($this->user_model->loggedin() == FALSE){
                     redirect('user/login');
                 }
-           }
+           }*/
     }
 }

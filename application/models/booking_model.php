@@ -3,7 +3,9 @@ if ( !defined( 'BASEPATH' ) )
 	exit( 'No direct script access allowed' );
 class booking_model extends MY_Model
 {
-   
+   public $rules = array(
+    'email' => array('field'=> 'email', 'label'=> 'email', 'rules'=>'trim|required|valid_email'),
+    );
     public function tcount($cat)
     {
         $this->db->where('category',$cat);

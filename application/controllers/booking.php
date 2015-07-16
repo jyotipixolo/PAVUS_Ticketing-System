@@ -41,6 +41,13 @@ class booking extends Pixolo_Controller {
         
         
          $this->load->model('booking_model','',TRUE);
+        $rules = $this->booking_model->rules;
+        $this->form_validation->set_rules($rules);
+       /*  if($this->form_validation->run()!=TRUE)
+        {
+            redirect('booking/bookingform');
+           
+        };*/
         
         $cost['silver']=1000;
         $cost['gold']=1500;

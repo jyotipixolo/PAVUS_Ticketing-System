@@ -22,6 +22,7 @@ class Welcome extends Pixolo_Controller {
 	{
         $this->load->model('Events_model','',TRUE);
         $message['events'] = $this->Events_model->getby(array("name" => 'Event 1'));
+        
         print_r(json_encode($message));
 		//$this->load->view('json', $message);
 	}

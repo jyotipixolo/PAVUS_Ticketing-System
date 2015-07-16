@@ -1,0 +1,17 @@
+Name: {{ticketinfo.user.name}}
+<br>
+E-mail : {{ticketinfo.user.email}}
+<br>
+Phone : {{ticketinfo.user.contactnumber}}
+<br>
+Order Number : {{ticketinfo.user.id}}
+<br>
+Number of Tickets : {{ticketinfo.user.quantity}}
+<br>
+Total Cost: {{ticketinfo.user.cost}}
+
+<ul>
+    <li ng-repeat="number in ticketinfo.tickets">{{number.ticket}}</li>
+</ul>
+
+<button ng-click="getticket()">Get Ticket</button>

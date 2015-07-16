@@ -22,6 +22,17 @@ class booking extends Pixolo_Controller {
 	{
         
 	}
+
+public function test(){
+
+        $this->load->model('booking_model','',TRUE);
+
+        $message['json'] = $this->booking_model->getall();
+        
+       //$message['test'] = json_encode($message['test']);
+        $this->load->view('json', $message);
+}
+
     public function bookingform()
     {
         $this->load->model('booking_model','',TRUE);
@@ -37,17 +48,10 @@ class booking extends Pixolo_Controller {
     }
     public function confirmation()
     {
-        
-        
-        
-         $this->load->model('booking_model','',TRUE);
+
+        $this->load->model('booking_model','',TRUE);
         $rules = $this->booking_model->rules;
         $this->form_validation->set_rules($rules);
-       /*  if($this->form_validation->run()!=TRUE)
-        {
-            redirect('booking/bookingform');
-           
-        };*/
         
         $cost['silver']=1000;
         $cost['gold']=1500;
@@ -59,16 +63,18 @@ class booking extends Pixolo_Controller {
         $ticketinitial['diamond'] = "D";
         $ticketinitial['vip'] = "V";
         
-        $inputdata['name']=$this->input->get('name');
-        $inputdata['contactnumber']=$this->input->get('contactnumber');
-        $inputdata['email']=$this->input->get('email');
-        $inputdata['category']=$this->input->get('category');
-        $inputdata['quantity']=$this->input->get('quantity');
+        $input=$this->input->get('ticketinput');
+        $input=json_decode($input);
+        $inputdata['name']=$input->name;
+        $inputdata['contactnumber']=$input->contactnumber;
+        $inputdata['email']=$input->email;
+        $inputdata['category']=$input->category;
+        $inputdata['quantity']=$input->quantity;
         $inputdata['cost']=$inputdata['quantity'] * $cost[$inputdata['category']];
-            print_r ($inputdata);
-         $count = $this->booking_model->tcount($inputdata['category']);
+        $count = $this->booking_model->tcount($inputdata['category']);
         if($count + $inputdata['quantity'] <= 20)
         {
+
             $orderid=$this->booking_model->createorder($inputdata);
             $ticketid = $this->booking_model->getlastticketnumber($inputdata['category']);
             if($ticketid == false)
@@ -93,17 +99,24 @@ class booking extends Pixolo_Controller {
                 
                 //INSERT DATA
                 $ticketbookedid = $this->booking_model->createtickets($insertdata);
-                print_r($ticketbookedid);
-                array_push($ticketnumbers,$ticketbookedid);
-                print_r($ticketnumbers);
+                //array_push($ticketnumbers,$ticketbookedid);
+               
             }
             
             //ARRAY THAT CONTAINS ALL THE TICKET NUMBER TO PUT IN RECEIPT - $ticketnumbers
-            print_r($ticketnumbers);
-            
+             
+
+              $message['json'] = new stdClass();
+              $message['json']->tickets = $this->booking_model->getorderticket($orderid);
+              $message['json']->user = $this->booking_model->getorderuser($orderid);
+        
+       //$message['test'] = json_encode($message['test']);
+                
         }
-        $this->load->model('booking_model','',TRUE);
-        $this->load->view('bookingconfirmation', $this->data);
+        else{
+            print_r("false");
+        }
+        $this->load->view('json', $message);
     }
     public function pdf()
     {

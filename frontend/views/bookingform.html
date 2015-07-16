@@ -1,0 +1,33 @@
+<div class="container">
+    <h2 class="title">
+    Book Ticket
+</h2>
+    <form>
+        <input type="text" placeholder="name" ng-model="customer.name" required>
+        <input type="email" placeholder="email" ng-model="customer.email" required>
+        <input type="number" placeholder="contactnumber" ng-model="customer.contactnumber" required>
+        <select ng-model="customer.quantity">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <select ng-model="customer.category">
+            <option value="silver">Silver</option>
+            <option value="gold">Gold</option>
+            <option value="diamond">Diamond</option>
+            <option value="vip">VIP</option>
+        </select>
+        <button type="submit" ng-click="test()">Booking ticket</button>
+    </form>
+    
+    
+    
+    <h2>{{customer.quantity * 1000}}</h2>
+</div>

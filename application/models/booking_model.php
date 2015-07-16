@@ -21,21 +21,22 @@ class booking_model extends MY_Model
             return $data;
     
 }
-    
+    public function getall(){
+        $data = $this->db->query('SELECT * FROM tickets')->result();
+        return $data;
+
+    }
     public function getlastticketnumber($cat)
     {
         $this->db->select_max('id');
         $this->db->where('category',$cat);
         $id=$this->db->get('tickets')->row();
-        print_r($id);
-        print_r("is the ID");
         
         if($id->id > 0)
         {
             $this->db->select('ticket');
             $this->db->where('id', $id->id);
             $data = $this->db->get('tickets')->row();
-            print_r($data);
             return $data->ticket;
         }
         return false;
@@ -66,6 +67,16 @@ class booking_model extends MY_Model
             {
                 return $data['ticket'];
             }
+    }
+
+    public function getorderticket($order){
+        $data = $this->db->query('SELECT `ticket` FROM `tickets` WHERE `orderid` = '.$order)->result();
+        return $data;
+    }
+    public function getorderuser($order)
+    {
+        $data = $this->db->query('SELECT * FROM `orders` WHERE `id` = '.$order)->row();
+        return $data;
     }
 }
 

@@ -1,3 +1,3 @@
 <?php
-print_r($message);
+	echo json_encode($json);
 ?>

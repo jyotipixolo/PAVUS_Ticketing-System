@@ -1,33 +1,100 @@
 <div class="container">
-    <h2 class="title">
+    <div class="row">
+        <div class="col-md-4">
+            <br>
+            Welcome, {{user.name}} <br>
+            <button class="btn btn-primary btn-sm" ng-click="logout()">LOGOUT</button>
+            <br>
+            <br>
+            <h4>Tickets Availabe</h4>
+            <br>
+            <br>
+            <img src="img/ecategory.png"> <span style="font-size:large; padding:5px">: {{earlybirdavailable}}</span>
+            <br>
+            <br>
+            <img src="img/scategory.png"> <span style="font-size:large; padding:5px">: {{silveravailable}} </span>
+            <br>
+            <br>
+            <img src="img/gcategory.png"> <span style="font-size:large; padding:5px">: {{goldavailable}} </span>
+            <br>
+            <br>
+            <img src="img/dcategory.png"> <span style="font-size:large; padding:5px">: {{diamondavailable}} </span>
+            <br>
+            <br>
+            <img src="img/vcategory.png"> <span style="font-size:large; padding:5px">: {{vipavailable}} </span>
+            <br>
+
+
+        </div>
+        <div class="col-md-8">
+            <div class="formpage">
+                <h2 class="title">
     Book Ticket
 </h2>
-    <form>
-        <input type="text" placeholder="name" ng-model="customer.name" required>
-        <input type="email" placeholder="email" ng-model="customer.email" required>
-        <input type="number" placeholder="contactnumber" ng-model="customer.contactnumber" required>
-        <select ng-model="customer.quantity">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        <select ng-model="customer.category">
-            <option value="silver">Silver</option>
-            <option value="gold">Gold</option>
-            <option value="diamond">Diamond</option>
-            <option value="vip">VIP</option>
-        </select>
-        <button type="submit" ng-click="test()">Booking ticket</button>
-    </form>
-    
-    
-    
-    <h2>{{customer.quantity * 1000}}</h2>
+
+                <form class="form-horizontal" ng-submit="getconfirmation()">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" placeholder="Full Name" ng-model="customer.name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Phone Number" ng-model="customer.contactnumber" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="emailid" class="form-control" placeholder="Email" ng-model="customer.email" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="qty" style="">Quanity</label>
+                                <select class="form-control" id="qty" ng-model="customer.quantity" ng-change="costchange()">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="qty" style="">Category</label>
+                                <select class="form-control" ng-model="customer.category" ng-change="costchange()">
+                                    <option value="earlybird" ng-if="earlybirdavailable>0">Early-bird</option>
+                                    <option value="silver" ng-if="silveravailable>0">Silver</option>
+                                    <option value="gold" ng-if="goldavailable>0">Gold</option>
+                                    <option value="diamond" ng-if="diamondavailable>0">Diamond</option>
+                                    <option value="vip" ng-if="vipavailable>0">VIP</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="qty" style="">Cost</label>
+                                <input class="form-control" type="text" value="₹{{customer.cost}}" readonly>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <p style="color:red">{{message}}</p>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Book Now</button>
+                    <br>
+                    <span style="color:blue">Book only after payment is completed</span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loader" ng-show="loading">
+    <img src="img/loader.png">
+    <br> Loging In...
 </div>

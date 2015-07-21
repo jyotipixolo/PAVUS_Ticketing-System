@@ -6,6 +6,23 @@ class booking_model extends MY_Model
    public $rules = array(
     'email' => array('field'=> 'email', 'label'=> 'email', 'rules'=>'trim|required|valid_email'),
     );
+
+   public function login($user, $pass){
+        $data = $this->db->query('SELECT * FROM `users` WHERE `name` = "'.$user.'"')->row();
+        if($data != false)
+        {
+            if($data->password == $pass)
+                {
+                    return $data;
+                }else{
+                    return false;   
+                };
+        }else{
+            return false;
+        };
+        
+   }
+
     public function tcount($cat)
     {
         $this->db->where('category',$cat);

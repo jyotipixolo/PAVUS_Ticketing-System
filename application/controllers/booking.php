@@ -33,35 +33,53 @@ public function test(){
         $this->load->view('json', $message);
 }
 
+    public function login()
+    {
+        $user=$this->input->get('user');
+        $user = json_decode($user);
+
+        $this->load->model('booking_model','',TRUE);
+        $message['json'] = $this->booking_model->login($user->name, $user->password);
+            $this->load->view('json', $message);
+            
+    }
+    
     public function bookingform()
     {
         $this->load->model('booking_model','',TRUE);
         
+        $totaltickets['silver'] = 20;
+        $totaltickets['gold'] = 30;
+        $totaltickets['diamond'] = 20;
+        $totaltickets['vip'] = 20;
         
         $message['silver'] = $this->booking_model->tcount('silver');
-       $message['gold'] = $this->booking_model->tcount('gold');
+        $message['gold'] = $this->booking_model->tcount('gold');
         $message['diamond'] = $this->booking_model->tcount('diamond');
         $message['vip'] = $this->booking_model->tcount('vip');
         
+        $message['json'] = new stdClass();
+        $message['json']->silver = $totaltickets['silver'] - $message['silver'];
+        $message['json']->gold = $totaltickets['gold'] - $message['gold'];
+        $message['json']->diamond = $totaltickets['diamond'] - $message['diamond'];
+        $message['json']->vip = $totaltickets['vip'] - $message['vip'];
         
-        $this->load->view('bookingform', $message);
+        $this->load->view('json', $message);
     }
     public function confirmation()
     {
 
         $this->load->model('booking_model','',TRUE);
-        $rules = $this->booking_model->rules;
-        $this->form_validation->set_rules($rules);
-        
-        $cost['silver']=1000;
-        $cost['gold']=1500;
-        $cost['diamond']=2000;
-        $cost['vip']=2500;
         
         $ticketinitial['silver'] = "S";
         $ticketinitial['gold'] = "G";
         $ticketinitial['diamond'] = "D";
         $ticketinitial['vip'] = "V";
+
+        $totaltickets['silver'] = 20;
+        $totaltickets['gold'] = 30;
+        $totaltickets['diamond'] = 20;
+        $totaltickets['vip'] = 20;
         
         $input=$this->input->get('ticketinput');
         $input=json_decode($input);
@@ -70,9 +88,10 @@ public function test(){
         $inputdata['email']=$input->email;
         $inputdata['category']=$input->category;
         $inputdata['quantity']=$input->quantity;
-        $inputdata['cost']=$inputdata['quantity'] * $cost[$inputdata['category']];
+        $inputdata['cost']=$input->cost;
+        $inputdata['sales']=$input->sales;
         $count = $this->booking_model->tcount($inputdata['category']);
-        if($count + $inputdata['quantity'] <= 20)
+        if($count + $inputdata['quantity'] <= $totaltickets[$inputdata['category']])
         {
 
             $orderid=$this->booking_model->createorder($inputdata);
@@ -80,8 +99,7 @@ public function test(){
             if($ticketid == false)
             {
                 $ticketid = $ticketinitial[$inputdata['category']]."000";
-            }
-            $ticketnumbers = array();
+            };
             
             //CREATE TICKETS
             for($q=0; $q<$inputdata['quantity']; $q++)
@@ -110,13 +128,13 @@ public function test(){
               $message['json']->tickets = $this->booking_model->getorderticket($orderid);
               $message['json']->user = $this->booking_model->getorderuser($orderid);
         
-       //$message['test'] = json_encode($message['test']);
+            $this->load->view('json', $message);
                 
         }
         else{
             print_r("false");
         }
-        $this->load->view('json', $message);
+        
     }
     public function pdf()
     {

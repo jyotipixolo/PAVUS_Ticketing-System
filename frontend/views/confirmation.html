@@ -1,17 +1,76 @@
-Name: {{ticketinfo.user.name}}
-<br>
-E-mail : {{ticketinfo.user.email}}
-<br>
-Phone : {{ticketinfo.user.contactnumber}}
-<br>
-Order Number : {{ticketinfo.user.id}}
-<br>
-Number of Tickets : {{ticketinfo.user.quantity}}
-<br>
-Total Cost: {{ticketinfo.user.cost}}
-
-<ul>
-    <li ng-repeat="number in ticketinfo.tickets">{{number.ticket}}</li>
-</ul>
-
-<button ng-click="getticket()">Get Ticket</button>
+<div class="container">
+    <table style="width:80%">
+        <tr>
+            <td><strong>Order No.</strong> </td>
+            <td>: PAVUSTCKT{{ticketinfo.user.id}}</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Name</strong>
+            </td>
+            <td>: {{ticketinfo.user.name}}</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>E-mail</strong>
+            </td>
+            <td>: {{ticketinfo.user.email}}</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Phone No.</strong>
+            </td>
+            <td>: {{ticketinfo.user.contactnumber}}</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Tickets Booked</strong>
+            </td>
+            <td>: {{ticketinfo.user.quantity}}</td>
+        </tr>
+    </table>
+    <br>
+    <h5>Ticket Information</h5>
+    <div>
+        <table style="width: 100%;text-align: center">
+            <tr style="background-color:rgb(18,34,94);color:white">
+                <td>Sr. No</td>
+                <td>Ticket Number</td>
+                <td>Category</td>
+                <td>Cost</td>
+            </tr>
+            <tr ng-class="{alternaterow : $index % 2 != 0}" ng-repeat="ticket in ticketinfo.tickets">
+                <td>{{$index + 1}}</td>
+                <td>{{ticket.ticket}}</td>
+                <td>{{ticketinfo.user.category | uppercase}}</td>
+                <td>{{ticketinfo.user.cost / ticketinfo.user.quantity}}</td>
+            </tr>
+            <tr style="background-color:rgb(18,34,94);color:white">
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td>{{ticketinfo.user.cost}}</td>
+            </tr>
+        </table>
+    </div>
+    <div style="font-size:large"><strong>Event Information</strong>
+        <ul>
+            <li>Event will be held on 8th August, 2015</li>
+            <li>Event will be held at Somaiya Ground No. 4 & 5, Ghatkopar (East)</li>
+            <li>Entry to the event starts at 4:30pm</li>
+            <li>Food and drinks will be available for purchase in the grounds</li>
+        </ul>
+        <br>
+    </div>
+    <div style="background-color: gainsboro;padding: 10px;"><strong>Terms & Condition</strong>
+        <ul>
+            <li>The identity proof of the person who booked the ticket is required while collecting the tickets</li>
+            <li>This ticket is strictly not transferable and is for the sole use of the purchaser</li>
+            <li>No smoking is allowed within the venue</li>
+        </ul>
+    </div>
+    <br>
+    <br>
+	<a href="http://FreeHTMLtoPDF.com/?convert">Download as PDF</a>
+    <button class="btn btn-lg btn-primary btn-block" ng-click="getticket()">Book More</button>
+</div>

@@ -1,6 +1,6 @@
 var templateservicemod = angular.module('templateservicemod', []);
 templateservicemod.service('TemplateService', function () {
-    this.title = "Home";
+    this.title = "Pavus - Booking System";
     this.meta = "Google";
     this.metadesc = "Home";
 

@@ -17,9 +17,9 @@ firstapp.config(['$routeProvider',
             templateUrl: 'views/template.html',
             controller: 'confirmationCtrl'
         }).
-        when('/pdf', {
+        when('/login', {
             templateUrl: 'views/template.html',
-            controller: 'pdfCtrl'
+            controller: 'loginCtrl'
         }).
         when('/portfolio', {
             templateUrl: 'views/template.html',
